@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body onload="loadDoc()">
+        <section>
+            <nav>
+                <ul>
+
+                </ul>
+            </nav>
+            <article>
+                No RM: <br>
+                <input type="text" id="noRm" disabled>
+                <br><br>
+                Nama: <br>
+                <input type="text" id="nama" disabled>
+                <br><br>
+                NIK: <br>
+                <input type="text" id="nik" disabled>
+                <br><br>
+                Alamat: <br>
+                <input type="text" id="alamat" disabled>
+                <br><br>
+                Tanggal Lahir:<br>
+                <input type="text" id="tanggalLahir" disabled>
+                <br><br>
+                Kelamin: <br>
+                <input type="text" id="kelamin" disabled>
+                <br><br>
+
+                <p id="demo"></p>
+                <br>
+            </article>
+        </section>
+        <script>
+            function loadDoc() {
+                var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariPasien?nik=" + getCookie("nik");
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", url, true);
+                xhttp.send();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var objj = JSON.parse(this.responseText);
+                        document.getElementById("noRm").value = objj.noRm;
+                        document.getElementById("nama").value = objj.nama;
+                        document.getElementById("nik").value = objj.nik;
+                        document.getElementById("alamat").value = objj.alamat;
+                        document.getElementById("tanggalLahir").value = objj.tanggalLahir;
+                        document.getElementById("kelamin").value = objj.kelamin;
+                    }
+                       };
+            }
+            function getCookie(cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) === ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) === 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+                
+            
+        </script>
+    </body>
+</html>
